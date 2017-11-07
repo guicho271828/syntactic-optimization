@@ -68,37 +68,53 @@
 
 (setf *optimize-nested-mapcar* nil)
 (defun fn1 ()
-  (mapcar #'fn
-          (mapcar #'fn
-                  (make-list *len* :initial-element 1)
-                  (make-list *len* :initial-element 2)
-                  (make-list *len* :initial-element 3))
-          (mapcar #'fn
-                  (make-list *len* :initial-element 4)
-                  (make-list *len* :initial-element 5)
-                  (make-list *len* :initial-element 6))
-          (mapcar #'fn
-                  (make-list *len* :initial-element 7)
-                  (make-list *len* :initial-element 8)
-                  (make-list *len* :initial-element 9))))
+  (let ((list (make-list *len* :initial-element 0)))
+    (mapcar #'fn
+            (mapcar #'fn 
+                    (mapcar #'fn list list list)
+                    (mapcar #'fn list list list)
+                    (mapcar #'fn list list list))
+            (mapcar #'fn 
+                    (mapcar #'fn list list list)
+                    (mapcar #'fn list list list)
+                    (mapcar #'fn list list list))
+            (mapcar #'fn 
+                    (mapcar #'fn list list list)
+                    (mapcar #'fn list list list)
+                    (mapcar #'fn list list list)))))
 
 (setf *optimize-nested-mapcar* t)
 (defun fn2 ()
-  (mapcar #'fn
-          (mapcar #'fn
-                  (make-list *len* :initial-element 1)
-                  (make-list *len* :initial-element 2)
-                  (make-list *len* :initial-element 3))
-          (mapcar #'fn
-                  (make-list *len* :initial-element 4)
-                  (make-list *len* :initial-element 5)
-                  (make-list *len* :initial-element 6))
-          (mapcar #'fn
-                  (make-list *len* :initial-element 7)
-                  (make-list *len* :initial-element 8)
-                  (make-list *len* :initial-element 9))))
+  (let ((list (make-list *len* :initial-element 0)))
+    (mapcar #'fn
+            (mapcar #'fn 
+                    (mapcar #'fn list list list)
+                    (mapcar #'fn list list list)
+                    (mapcar #'fn list list list))
+            (mapcar #'fn 
+                    (mapcar #'fn list list list)
+                    (mapcar #'fn list list list)
+                    (mapcar #'fn list list list))
+            (mapcar #'fn 
+                    (mapcar #'fn list list list)
+                    (mapcar #'fn list list list)
+                    (mapcar #'fn list list list)))))
 
-;; SYNTACTIC-OPTIMIZATION> (time (progn (fn1) nil))
+(time (fn1))
+;; Evaluation took:
+;;   0.150 seconds of real time
+;;   0.144000 seconds of total run time (0.144000 user, 0.000000 system)
+;;   [ Run times consist of 0.020 seconds GC time, and 0.124 seconds non-GC time. ]
+;;   96.00% CPU
+;;   452,522,933 processor cycles
+;;   22,413,312 bytes consed
+(time (fn2))
+;; Evaluation took:
+;;   0.126 seconds of real time
+;;   0.124000 seconds of total run time (0.124000 user, 0.000000 system)
+;;   98.41% CPU
+;;   378,495,072 processor cycles
+;;   3,211,264 bytes consed
 ;; Evaluation took:
 ;;   0.074 seconds of real time
 ;;   0.072000 seconds of total run time (0.072000 user, 0.000000 system)
