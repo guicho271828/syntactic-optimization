@@ -10,7 +10,7 @@
   :author "Masataro Asai"
   :mailto "guicho2.71828@gmail.com"
   :license "LLGPL"
-  :depends-on (:trivia :alexandria :iterate)
+  :depends-on (:trivia :alexandria :iterate :trivia.quasiquote)
   :pathname "src"
   :components ((:file "package"))
   :description "provides a few compiler macros for syntactic optimizations e.g. (log (/ x 3) 3) -> (1- (log x 3))"
