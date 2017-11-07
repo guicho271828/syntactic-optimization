@@ -1,5 +1,8 @@
 
-# Syntactic-Optimization - provides a few compiler macros for syntactic optimizations e.g. (log (/ x 3) 3) -> (1- (log x 3))
+# Syntactic-Optimization.
+
+This is a fun attempt to provide a few compiler macros for syntactic
+optimizations e.g. (log (/ x 3) 3) -> (1- (log x 3))
 
 ## Usage
 
