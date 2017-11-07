@@ -37,10 +37,10 @@
     ;;              (fn1 args1* (fn2 args2*) args3*))
     ;;            args1* args2* args3*)
     (if *optimize-nested-mapcar*
-        (optimize-nexted-mapcar whole function (cons list more-lists))
+        (optimize-nested-mapcar whole function (cons list more-lists))
         whole)))
 
-(defun optimize-nexted-mapcar (whole function args)
+(defun optimize-nested-mapcar (whole function args)
   (iter (for arg in args)
         (with matched = nil)
         (match arg
